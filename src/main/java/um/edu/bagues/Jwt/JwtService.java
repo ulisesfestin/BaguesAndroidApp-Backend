@@ -18,10 +18,14 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    private static final String SECRET_KEY = System.getenv("MEDICATE_SECRET_KEY");
+    private static final String SECRET_KEY = System.getenv("BAGUES_SECRET_KEY");
 
     public String getToken(UserDetails user) {
-        return getToken(new HashMap<>(), user);
+        // return getToken(new HashMap<>(), user);
+
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("role", user.getAuthorities().iterator().next().getAuthority());
+        return getToken(claims, user);
     }
 
     private String getToken(Map<String,Object> extraClaims, UserDetails user) {

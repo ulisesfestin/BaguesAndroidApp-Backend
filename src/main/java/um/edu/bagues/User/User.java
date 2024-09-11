@@ -1,15 +1,21 @@
 package um.edu.bagues.User;
 
 import jakarta.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDate;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -18,24 +24,38 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    private Integer id;
 
     @Column(nullable = false, unique = true)
-    String username;
+    @NotNull(message = "Username is required")
+    @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")
+    private String username;
 
     @Column(nullable = false, unique = true)
-    String email;
+    @NotNull(message = "Email is required")
+    @Email(message = "Email should be valid")
+    private String email;
 
-    String password;
+    @Size(max = 50, message = "First name must be less than 50 characters")
+    private String firstName;
 
-    LocalDate birthDate;
+    @Size(max = 50, message = "Last name must be less than 50 characters")
+    private String lastName;
+
+    @NotNull(message = "Password is required")
+    @Size(min = 8, message = "Password must be at least 8 characters long")
+    private String password;
+
+    @Pattern(regexp = "^\\+?[0-9. ()-]{7,25}$", message = "Phone number is invalid")
+    private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
-    Role role;
+    @NotNull(message = "Role is required")
+    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

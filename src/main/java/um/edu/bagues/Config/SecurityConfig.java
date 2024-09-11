@@ -1,4 +1,4 @@
-package com.medicateapp.restfulapi.Config;
+package um.edu.bagues.Config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.medicateapp.restfulapi.Jwt.JwtAuthenticationFilter;
+import um.edu.bagues.Jwt.JwtAuthenticationFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration

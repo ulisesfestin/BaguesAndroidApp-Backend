@@ -33,8 +33,10 @@ public class AuthService {
         User user = User.builder()
                 .username(request.getUsername())
                 .email(request.getEmail())
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .birthDate(request.getBirthDate())
+                .phoneNumber(request.getPhoneNumber())
                 .role(Role.CLIENT)
                 .build();
 
