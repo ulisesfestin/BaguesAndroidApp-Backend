@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/products")
 @RequiredArgsConstructor
 public class ProductController {
 
@@ -29,7 +29,7 @@ public class ProductController {
     }
 
     @GetMapping("/code/{code}")
-    public ResponseEntity<Optional<Product>> getProductByCode(@PathVariable Integer code) {
+    public ResponseEntity<Optional<Product>> getProductByCode(@PathVariable String code) {
         Optional<Product> product = productService.getProductByCode(code);
         return product.isPresent() ? new ResponseEntity<>(product, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);

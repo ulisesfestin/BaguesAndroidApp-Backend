@@ -20,7 +20,7 @@ public class ProductService {
         return productRepository.findById(id);
     }
 
-    public Optional<Product> getProductByCode(Integer code) {
+    public Optional<Product> getProductByCode(String code) {
         return productRepository.findByCode(code);
     }
 
@@ -47,7 +47,7 @@ public class ProductService {
                     existingProduct.setDescription(newProductData.getDescription());
                     existingProduct.setPrice(newProductData.getPrice());
                     existingProduct.setCode(newProductData.getCode());
-                    existingProduct.setStock(newProductData.getStock());
+                    existingProduct.setImageUrl(newProductData.getImageUrl());
                     return productRepository.save(existingProduct);
                 })
                 .orElseThrow(() -> new RuntimeException("Product not found with id " + id));

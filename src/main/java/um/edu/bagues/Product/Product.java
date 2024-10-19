@@ -17,7 +17,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(nullable = false, length = 100)
     @NotNull
@@ -35,11 +35,9 @@ public class Product {
 
     @Column(unique = true, nullable = false)
     @NotNull
-    private Integer code;
+    private String code;
 
-    @Column(nullable = false)
-    @NotNull
-    @PositiveOrZero
-    private Integer stock;
+    @Column()
+    private String imageUrl;
 
 }
