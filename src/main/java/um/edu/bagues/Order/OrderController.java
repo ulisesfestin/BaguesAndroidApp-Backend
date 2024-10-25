@@ -38,6 +38,19 @@ public class OrderController {
         }
     }
 
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Order>> getOrdersByUserId(@PathVariable Long userId) {
+        try {
+            List<Order> orders = orderService.getOrdersByUserId(userId);
+            if (orders.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);  // Retorna 204 si no hay pedidos para el usuario
+            }
+            return new ResponseEntity<>(orders, HttpStatus.OK);  // Retorna 200 OK con la lista de pedidos del usuario
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);  // Retorna 500 si hay un error
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Order> getOrderById(@PathVariable("id") Long id) {
         Optional<Order> orderData = orderService.getOrderById(id);

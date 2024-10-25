@@ -27,6 +27,10 @@ public class OrderService {
         return orderRepository.findById(id);
     }
 
+    public List<Order> getOrdersByUserId(Long userId) {
+        return orderRepository.findByUserId(userId);
+    }
+
     // Actualizar una orden
     public Order updateOrder(Long id, Order orderDetails) {
         return orderRepository.findById(id).map(order -> {
