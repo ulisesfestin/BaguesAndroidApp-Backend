@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
-    Optional<Product> findByCode(Integer code);
+    Optional<Product> findByCode(String code);
 
     List<Product> findByName(String name);
 
