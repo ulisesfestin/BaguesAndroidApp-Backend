@@ -19,9 +19,9 @@ public class OrderController {
     public ResponseEntity<Order> createOrder(@RequestBody Order order) {
         try {
             Order createdOrder = orderService.createOrder(order);
-            return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);  // Retorna 201 Created
+            return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);  // Retorna 500 si hay un error
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -30,11 +30,11 @@ public class OrderController {
         try {
             List<Order> orders = orderService.getAllOrders();
             if (orders.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);  // Retorna 204 si no hay pedidos
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
-            return new ResponseEntity<>(orders, HttpStatus.OK);  // Retorna 200 OK con la lista de pedidos
+            return new ResponseEntity<>(orders, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);  // Retorna 500 si hay un error
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -43,11 +43,11 @@ public class OrderController {
         try {
             List<Order> orders = orderService.getOrdersByUserId(userId);
             if (orders.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);  // Retorna 204 si no hay pedidos para el usuario
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT); 
             }
-            return new ResponseEntity<>(orders, HttpStatus.OK);  // Retorna 200 OK con la lista de pedidos del usuario
+            return new ResponseEntity<>(orders, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);  // Retorna 500 si hay un error
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);  
         }
     }
 
@@ -56,23 +56,20 @@ public class OrderController {
         Optional<Order> orderData = orderService.getOrderById(id);
 
         if (orderData.isPresent()) {
-            return new ResponseEntity<>(orderData.get(), HttpStatus.OK);  // Retorna 200 OK con el pedido
+            return new ResponseEntity<>(orderData.get(), HttpStatus.OK); 
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);  // Retorna 404 si no encuentra el pedido
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);  
         }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Order> updateOrder(@PathVariable("id") Long id, @RequestBody Order orderDetails) {
         try {
-            // Llama al servicio para actualizar la orden
             Order updatedOrder = orderService.updateOrder(id, orderDetails);
-            return new ResponseEntity<>(updatedOrder, HttpStatus.OK);  // Retorna 200 OK con el pedido actualizado
+            return new ResponseEntity<>(updatedOrder, HttpStatus.OK);  
         } catch (RuntimeException e) {
-            // Si no se encuentra la orden, retorna 404 Not Found
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            // Para cualquier otro error, retorna 500 Internal Server Error
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -81,9 +78,9 @@ public class OrderController {
     public ResponseEntity<HttpStatus> deleteOrder(@PathVariable("id") Long id) {
         try {
             orderService.deleteOrder(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);  // Retorna 204 No Content si se borra con éxito
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);  
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);  // Retorna 500 si hay un error
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);  
         }
     }
 }

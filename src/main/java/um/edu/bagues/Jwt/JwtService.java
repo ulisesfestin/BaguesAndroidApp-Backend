@@ -23,8 +23,6 @@ public class JwtService {
     private static final String SECRET_KEY = dotenv.get("BAGUES_SECRET_KEY");
 
     public String getToken(UserDetails user) {
-        // return getToken(new HashMap<>(), user);
-
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", user.getAuthorities().iterator().next().getAuthority());
         return getToken(claims, user);
@@ -36,7 +34,7 @@ public class JwtService {
                 .setClaims(extraClaims)
                 .setSubject(user.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 10)) // 10 días
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 10))
                 .signWith(getKey(), SignatureAlgorithm.HS256)
                 .compact();
     }

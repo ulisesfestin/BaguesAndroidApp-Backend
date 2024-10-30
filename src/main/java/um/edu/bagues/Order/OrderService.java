@@ -12,17 +12,14 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
-    // Obtener todas las órdenes
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
     }
 
-    // Crear una nueva orden
     public Order createOrder(Order order) {
         return orderRepository.save(order);
     }
 
-    // Obtener una orden por ID
     public Optional<Order> getOrderById(Long id) {
         return orderRepository.findById(id);
     }
@@ -31,7 +28,6 @@ public class OrderService {
         return orderRepository.findByUserId(userId);
     }
 
-    // Actualizar una orden
     public Order updateOrder(Long id, Order orderDetails) {
         return orderRepository.findById(id).map(order -> {
             order.setType(orderDetails.getType());
@@ -41,7 +37,6 @@ public class OrderService {
         }).orElseThrow(() -> new RuntimeException("Order not found with id: " + id));
     }
 
-    // Eliminar una orden
     public void deleteOrder(Long id) {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Order not found with id: " + id));

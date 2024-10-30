@@ -22,12 +22,12 @@ public class UserController {
         try {
             List<User> users = userService.getAllUsers();
             if (users.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);  // Retorna 204 si no hay usuarios
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);  
             }
             List<UserDTO> userDTOs = users.stream().map(this::convertToDTO).collect(Collectors.toList());
-            return new ResponseEntity<>(userDTOs, HttpStatus.OK);  // Retorna 200 OK con la lista de usuarios
+            return new ResponseEntity<>(userDTOs, HttpStatus.OK);  
         } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);  // Retorna 500 si hay un error
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);  
         }
     }
 
@@ -37,9 +37,9 @@ public class UserController {
 
         if (userData.isPresent()) {
             UserDTO userDTO = convertToDTO(userData.get());
-            return new ResponseEntity<>(userDTO, HttpStatus.OK);  // Retorna 200 OK con el usuario
+            return new ResponseEntity<>(userDTO, HttpStatus.OK);  
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);  // Retorna 404 si no se encuentra el usuario
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);  
         }
     }
 
@@ -55,13 +55,12 @@ public class UserController {
             existingUser.setLastName(user.getLastName());
             existingUser.setPhoneNumber(user.getPhoneNumber());
             existingUser.setRole(user.getRole());
-            // Actualiza otros campos según sea necesario
 
             User updatedUser = userService.updateUser(existingUser);
             UserDTO userDTO = convertToDTO(updatedUser);
-            return new ResponseEntity<>(userDTO, HttpStatus.OK);  // Retorna 200 OK con el usuario actualizado
+            return new ResponseEntity<>(userDTO, HttpStatus.OK); 
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);  // Retorna 404 si no se encuentra el usuario
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);  
         }
     }
 
